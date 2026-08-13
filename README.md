@@ -23,5 +23,7 @@ Vesta is structured as independent, self-building blueprints that can be deploye
 Tvesta-kyc serves as the core identity and verification blueprint within the broader Vesta ecosystem.
 Designed as a standalone, production-ready module, it can be deployed independently or orchestrated alongside future Vesta microservices to power complete application backends.
 
+---
+
 ## 🏁Development Methodology
 This project utilizes AI-assisted coding to accelerate implementation and ensure robust, production-grade standards through iterative, human-vetted engineering.
