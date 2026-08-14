@@ -1,0 +1,43 @@
+services:
+  # --- Backend Microservice (FastAPI + Alembic) ---
+  kyc-backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: vesta-kyc-backend
+    ports:
+      - "8020:8020"
+    env_file:
+      - .env
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: >
+      bash -c "uv run alembic upgrade head && uv run uvicorn app.main:app --host 0.0.0.0 --port 8020"
+    networks:
+      - vesta-network
+      - global-db-network
+      - global-proxy-network
+
+  # --- Frontend Microservice (React + Caddy) ---
+  kyc-frontend:
+    build:
+      context: ./frontend-web
+      dockerfile: Dockerfile
+    container_name: vesta-kyc-frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - kyc-backend
+    networks:
+      - vesta-network
+      - global-proxy-network
+
+networks:
+  vesta-network:
+    external: true
+  global-db-network:
+    external: true
+    name: db-net
+  global-proxy-network:
+    external: true
+    name: proxy-net
