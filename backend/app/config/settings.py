@@ -1,5 +1,9 @@
+from pathlib import Path
 from pydantic import BaseModel, Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+BASE_DIR = Path(__file__).resolve().parent.parent.parent.parent
+ENV_FILE_PATH = BASE_DIR / ".env"
 
 class AppConfig(BaseModel):
     environment: str = "test"
@@ -23,13 +27,14 @@ class CorsConfig(BaseModel):
     cors_origins: list[str] = Field(default=["http://localhost:5173"])
 
 class Settings(BaseSettings):
-    app: AppConfig
-    database: DatabaseConfig
+    app: AppConfig = Field(default_factory=AppConfig) #type: ignore
+    database: DatabaseConfig = Field(default_factory=DatabaseConfig) #type: ignore
     email: EmailConfig = Field(default_factory=EmailConfig)
     cors: CorsConfig = Field(default_factory=CorsConfig)
 
     model_config = SettingsConfigDict(
-        env_file=".env",
+        env_file=(ENV_FILE_PATH, ".env"),
+        env_file_encoding="utf-8",
         env_nested_delimiter="__",  # Maps APP__ENVIRONMENT to app.environment
         extra="ignore",
     )
