@@ -1,0 +1,51 @@
+# ==========================================
+# Secrets & Environments
+# ==========================================
+.env
+.env.*
+!.env.example
+
+# ==========================================
+# Local Virtual Envs & Caches
+# ==========================================
+.venv/
+venv/
+ENV/
+.uv/
+
+# Python Bytecode & Cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Test & Lint Caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.pyright/
+.coverage
+htmlcov/
+
+# ==========================================
+# Git & OS Clutter
+# ==========================================
+.git/
+.gitignore
+.DS_Store
+Thumbs.db
+
+# ==========================================
+# IDEs & Editor Configs
+# ==========================================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ==========================================
+# Local Database & Log Artifacts
+# ==========================================
+*.log
+*.sqlite
+*.db
